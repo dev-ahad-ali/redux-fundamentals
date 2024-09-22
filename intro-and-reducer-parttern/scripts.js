@@ -6,6 +6,8 @@ const initialState = {
   post: 0,
 };
 
+const postCountElement = document.querySelector('#post-count');
+
 const INCREMENT = 'post/increment';
 const DECREMENT = 'post/decrement';
 const INCREASE_BY = 'post/increaseBy';
@@ -36,13 +38,22 @@ function reducer(state = initialState, action) {
   }
 }
 
-const store = createStore(reducer);
+const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__?.());
 
 console.log(store);
 
-store.subscribe(() => console.log(store.getState()));
+store.subscribe(() => {
+  console.log(store.getState());
+  postCountElement.innerText = store.getState().post;
+});
+
+postCountElement.innerText = store.getState().post;
 
 store.dispatch({ type: INCREMENT });
 store.dispatch({ type: DECREMENT });
 store.dispatch({ type: INCREASE_BY, payload: 4 });
 store.dispatch({ type: DECREASE_BY, payload: 2 });
+
+postCountElement.addEventListener('click', () => {
+  store.dispatch({ type: INCREMENT });
+});
