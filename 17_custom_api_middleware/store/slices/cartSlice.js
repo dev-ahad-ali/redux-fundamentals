@@ -64,7 +64,6 @@ const getCartItems = (products, cartItems) => {
 export const getAllCartItems = createSelector([getProduct, getCart], (products, cartItems) => {
   return getCartItems(products, cartItems);
 });
-
 export const getCartLoading = (state) => state.cartItems.loading;
 export const getCartError = (state) => state.cartItems.error;
 
